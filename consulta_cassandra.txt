@@ -1,0 +1,23 @@
+create keyspace if not exists tripCompany
+	with replication = {
+		'class': 'SimpleStrategy', 'replication_factor': 1
+	}
+	
+create table if not exists tripCompany.flights (
+	travel_code bigint,
+	user_code bigint,
+	travel_from text,
+	travel_to text,
+	flight_type text,
+	price double,
+	time double,
+	distance double,
+	agency text,
+	travel_date date,
+	primary key ((travel_date, travel_to), travel_code, user_code)
+)
+
+select * from tripCompany.flights 
+where travel_to = 'Recife (PE)' 
+and travel_date < '2020-09-19' and travel_date > '2020-09-17'
+ALLOW FILTERING
